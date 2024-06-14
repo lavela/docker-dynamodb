@@ -1,9 +1,12 @@
-FROM java:jre
+FROM openjdk:11-jre
 
 WORKDIR /opt/dynamodb
 
-RUN wget -O /opt/dynamodb/dynamodb_local_latest http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest
-RUN tar xfz /opt/dynamodb/dynamodb_local_latest
+# Download DynamoDB Local
+RUN wget -O /opt/dynamodb/dynamodb_local_latest https://s3.us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz || (echo "Download failed"; exit 1)
+
+# Extract the downloaded file (assuming it's a tar.gz file)
+RUN tar -xzvf /opt/dynamodb/dynamodb_local_latest -C /opt/dynamodb
 
 VOLUME ["/var/lib/dynamodb"]
 
