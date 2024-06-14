@@ -8,8 +8,8 @@ RUN wget -O /opt/dynamodb/dynamodb_local_latest https://s3.us-west-2.amazonaws.c
 # Extract the downloaded file (assuming it's a tar.gz file)
 RUN tar -xzf /opt/dynamodb/dynamodb_local_latest -C /opt/dynamodb
 
-VOLUME ["/var/lib/dynamodb"]
+VOLUME ["/opt/dynamodb"]
 
 EXPOSE 4761
 
-CMD ["java", "-Djava.library.path=./DynamoDBLocal_lib", "-jar", "DynamoDBLocal.jar", "-dbPath", "/var/lib/dynamodb", "-port", "4761"]
+CMD ["java", "-Djava.library.path=./DynamoDBLocal_lib", "-jar", "DynamoDBLocal.jar", "-dbPath", "/opt/dynamodb", "-port", "4761"]
